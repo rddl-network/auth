@@ -9,6 +9,12 @@ from auth.config import (
     AUTH_CHALLENGE_TIMEOUT_IN_SEC,
 )
 
+
+# Bech32 Encoding
+CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
+BECH32_SEPARATOR = '1'
+DENOM = "plmnt"
+
 challenges = {}
 
 
@@ -24,11 +30,6 @@ def does_pub_key_belong_to_valid_actor(pub_key: bytes) -> bool:
         return True
     except ecdsa.keys.MalformedPointError:
         return False
-
-
-# Bech32 Encoding
-CHARSET = "qpzry9x8gf2tvdw0s3jn54khce6mua7l"
-BECH32_SEPARATOR = '1'
 
 
 def convertbits(data, frombits, tobits, pad=True):
@@ -86,6 +87,10 @@ def pubkey_to_bech32_address(pubkey: str, hrp: str) -> str:
     ripemd160_hash = hashlib.new("ripemd160", sha256_hash).digest()
     data = convertbits(ripemd160_hash, 8, 5)
     return bech32_encode(hrp, data)
+
+
+def is_pub_key_corresponding_to_address(pub_key: str, address: str) -> bool:
+    return pubkey_to_bech32_address(pub_key, DENOM) == address
 
 
 def create_challenge(pub_key: str) -> int:
