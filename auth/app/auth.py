@@ -91,18 +91,3 @@ def pubkey_to_bech32_address(pubkey: str, hrp: str) -> str:
 
 def is_pub_key_corresponding_to_address(pub_key: str, address: str) -> bool:
     return pubkey_to_bech32_address(pub_key, DENOM) == address
-
-
-def create_challenge(pub_key: str) -> int:
-    cleanup_pending_challenges()
-    challenges[pub_key] = (
-        bytes([random.randint(0, 255) for _ in range(0, AUTH_CHALLENGE_SIZE)]),
-        time.time(),
-    )
-    return challenges[pub_key][0]
-
-
-def verify_signed_challenge(pub_key: bytes, signature: str) -> bool:
-    if pub_key not in challenges:
-        return False
-    return validate_signature_data_string(pub_key, signature, challenges[pub_key][0].hex())
