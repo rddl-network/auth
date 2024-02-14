@@ -13,7 +13,7 @@ fastapi = "^0.87.0"
 uvicorn = "^0.20.0"
 pyjwt = "^2.7.0"
 python-jose = {extras = ["cryptography"], version = "^3.3.0"}
-python-multipart = "^0.0.6"
+python-multipart = "^0.0.7"
 ecdsa = "^0.18.0"
 
 
