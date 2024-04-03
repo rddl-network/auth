@@ -18,7 +18,7 @@ ecdsa = "^0.18.0"
 
 
 [tool.poetry.group.dev.dependencies]
-black = {version = "23.3.0", extras = ["colorama"]}
+black = {version = "24.3.0", extras = ["colorama"]}
 pytest = "^7.2.0"
 httpx = "^0.24.1"
 
